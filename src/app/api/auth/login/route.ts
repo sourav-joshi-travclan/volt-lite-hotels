@@ -6,6 +6,11 @@ const AUTH_API_URL = process.env.AUTH_API_URL || "https://trav-auth-qa.travclan.
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    console.log(body)
+    const {username, password} = body;
+    if(username !== "test" || password !== "test") {
+      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
+    }
     const res = await fetch(`https://trav-auth-sandbox.travclan.com/authentication/internal/service/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
